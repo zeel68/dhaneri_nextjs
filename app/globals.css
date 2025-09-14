@@ -1,0 +1,260 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Enhanced color palette for Indian fashion eCommerce with warm cultural tones */
+  --background: rgb(252, 252, 252); /* Warm white background */
+  --foreground: oklch(0.15 0.02 30); /* Deep charcoal text */
+  --card: rgb(255, 253, 253); /* Warm card background */
+  --card-foreground: oklch(0.15 0.02 30); /* Deep charcoal card text */
+  --popover: oklch(0.99 0.005 85); /* Warm popover */
+  --popover-foreground: oklch(0.15 0.02 30); /* Deep charcoal popover text */
+
+  /* Updated primary to warm maroon/burgundy for Indian fashion aesthetic */
+  --primary: rgb(0, 0, 0); /* Rich maroon primary */
+  --primary-foreground: rgb(242, 244, 250); /* Warm white text on primary */
+
+  /* Enhanced secondary with deep slate for sophistication */
+  --secondary: oklch(0.25 0.015 240); /* Deep slate secondary */
+  --secondary-foreground: oklch(0.98 0.008 85); /* Warm white text on secondary */
+
+  --muted: oklch(0.96 0.01 85); /* Warm muted background */
+  --muted-foreground: oklch(0.45 0.02 30); /* Medium warm gray text */
+
+  /* Accent color changed to warm gold for Indian cultural appeal */
+  --accent: oklch(0.65 0.12 65); /* Warm gold accent */
+  --accent-foreground: oklch(0.15 0.02 30); /* Deep charcoal text on accent */
+
+  --destructive: oklch(0.55 0.2 25); /* Warm red destructive */
+  --destructive-foreground: oklch(0.98 0.008 85); /* Warm white text on destructive */
+  --border: oklch(0.9 0.01 85); /* Warm light border */
+  --input: oklch(0.98 0.008 85); /* Warm input background */
+  --ring: oklch(0.35 0.15 15 / 0.3); /* Maroon focus ring */
+
+  /* Updated chart colors with warm Indian-inspired palette */
+  --chart-1: oklch(0.35 0.15 15); /* Maroon */
+  --chart-2: oklch(0.65 0.12 65); /* Gold */
+  --chart-3: oklch(0.25 0.015 240); /* Deep slate */
+  --chart-4: oklch(0.45 0.1 120); /* Sage green */
+  --chart-5: oklch(0.6 0.08 300); /* Muted purple */
+
+  --radius: 0.75rem; /* Increased border radius for softer appearance */
+
+  --sidebar: oklch(0.15 0.02 30); /* Deep charcoal sidebar */
+  --sidebar-foreground: oklch(0.98 0.008 85); /* Warm white sidebar text */
+  --sidebar-primary: oklch(0.35 0.15 15); /* Maroon sidebar primary */
+  --sidebar-primary-foreground: oklch(0.98 0.008 85);
+  --sidebar-accent: oklch(0.65 0.12 65); /* Gold sidebar accent */
+  --sidebar-accent-foreground: oklch(0.15 0.02 30);
+  --sidebar-border: oklch(0.9 0.01 85);
+  --sidebar-ring: oklch(0.35 0.15 15 / 0.3);
+}
+
+.dark {
+  --background: oklch(0.08 0.01 30); /* Deep warm dark background */
+  --foreground: oklch(0.95 0.008 85); /* Warm light text */
+  --card: oklch(0.12 0.015 30); /* Dark warm card */
+  --card-foreground: oklch(0.95 0.008 85); /* Warm light card text */
+  --popover: oklch(0.08 0.01 30); /* Deep warm dark popover */
+  --popover-foreground: oklch(0.95 0.008 85); /* Warm light popover text */
+
+  /* Brighter maroon for dark mode visibility */
+  --primary: oklch(0.45 0.18 15); /* Brighter maroon primary */
+  --primary-foreground: oklch(0.95 0.008 85); /* Warm light text on primary */
+
+  --secondary: oklch(0.18 0.02 240); /* Lighter slate secondary */
+  --secondary-foreground: oklch(0.95 0.008 85); /* Warm light text on secondary */
+  --muted: oklch(0.18 0.02 30); /* Dark warm muted */
+  --muted-foreground: oklch(0.65 0.02 85); /* Medium warm gray text */
+
+  /* Brighter gold for dark mode contrast */
+  --accent: oklch(0.75 0.15 65); /* Brighter gold accent */
+  --accent-foreground: oklch(0.08 0.01 30); /* Deep dark text on accent */
+
+  --destructive: oklch(0.65 0.22 25); /* Brighter warm red destructive */
+  --destructive-foreground: oklch(0.95 0.008 85); /* Warm light text on destructive */
+  --border: oklch(0.25 0.02 30); /* Dark warm border */
+  --input: oklch(0.18 0.02 30); /* Dark warm input */
+  --ring: oklch(0.45 0.18 15 / 0.4); /* Brighter maroon focus ring */
+
+  /* Adjusted chart colors for dark mode visibility */
+  --chart-1: oklch(0.45 0.18 15); /* Brighter maroon */
+  --chart-2: oklch(0.75 0.15 65); /* Brighter gold */
+  --chart-3: oklch(0.35 0.02 240); /* Lighter slate */
+  --chart-4: oklch(0.55 0.12 120); /* Brighter sage */
+  --chart-5: oklch(0.7 0.1 300); /* Brighter purple */
+
+  --sidebar: oklch(0.12 0.015 30);
+  --sidebar-foreground: oklch(0.95 0.008 85);
+  --sidebar-primary: oklch(0.45 0.18 15);
+  --sidebar-primary-foreground: oklch(0.95 0.008 85);
+  --sidebar-accent: oklch(0.25 0.02 30);
+  --sidebar-accent-foreground: oklch(0.95 0.008 85);
+  --sidebar-border: oklch(0.25 0.02 30);
+  --sidebar-ring: oklch(0.35 0.02 30);
+}
+
+@theme inline {
+  /* Updated font configuration with elegant serif for headings */
+  --font-sans: "Inter", var(--font-geist-sans);
+  --font-serif: "Playfair Display", serif;
+  --font-mono: var(--font-geist-mono);
+
+  /* Color mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Enhanced typography hierarchy with serif headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+
+  /* Improved focus states with warm colors */
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+/* Enhanced custom styles with warm Indian fashion aesthetic */
+.hero-gradient {
+  background: linear-gradient(135deg, oklch(0.15 0.02 30) 0%, oklch(0.25 0.015 240) 50%, oklch(0.35 0.15 15) 100%);
+}
+
+/* Added warm gradient overlay for hero sections */
+.hero-overlay {
+  background: linear-gradient(135deg, oklch(0.35 0.15 15 / 0.9) 0%, oklch(0.25 0.015 240 / 0.8) 100%);
+}
+
+.product-card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px oklch(0.15 0.02 30 / 0.15), 0 0 0 1px oklch(0.35 0.15 15 / 0.1);
+}
+
+/* Added elegant button hover effects */
+.btn-primary-hover {
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, oklch(0.35 0.15 15) 0%, oklch(0.4 0.17 20) 100%);
+}
+
+.btn-primary-hover:hover {
+  background: linear-gradient(135deg, oklch(0.4 0.17 20) 0%, oklch(0.45 0.19 25) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px oklch(0.35 0.15 15 / 0.3);
+}
+
+/* Added accent gradient for special elements */
+.accent-gradient {
+  background: linear-gradient(135deg, oklch(0.65 0.12 65) 0%, oklch(0.7 0.14 70) 100%);
+}
+
+/* Enhanced text utilities with better contrast */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Added cultural pattern background utility */
+.pattern-bg {
+  background-image: radial-gradient(circle at 1px 1px, oklch(0.35 0.15 15 / 0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.96 0.01 85);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.15 15 / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.35 0.15 15 / 0.5);
+}
+
+/* Added smooth animations for better UX */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Enhanced selection styling */
+::selection {
+  background: oklch(0.35 0.15 15 / 0.2);
+  color: oklch(0.15 0.02 30);
+}
