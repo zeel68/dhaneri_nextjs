@@ -16,7 +16,7 @@ interface ApiResponse<T> {
 
 class ApiClient {
   mode = process.env.NODE_ENV || "production"
-  private baseURL = "http://backend.dhaneri.com/api"
+  private baseURL = "https://backend.dhaneri.com/api"
   private axiosInstance: AxiosInstance
   constructor(config?: AxiosRequestConfig) {
     this.axiosInstance = axios.create({
