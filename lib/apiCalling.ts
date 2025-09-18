@@ -17,9 +17,7 @@ interface ApiResponse<T> {
 }
 
 class ApiClient {
-  private baseURL = process.env.NODE_ENV === "development"
-    ? "http://localhost:5050/api"
-    : "https://your-production-domain.com/api"
+  private baseURL = "https://backend.dhaneri.com/api"
   private axiosInstance: AxiosInstance
   private isRefreshing = false
   private failedRequests: Array<{
