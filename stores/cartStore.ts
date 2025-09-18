@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware"
 import { STORE_ID } from "@/data/Consts"
 import ApiClient from "@/lib/apiCalling"
 import { useUserStore } from "./userStore"
+import apiClient from "@/lib/apiCalling"
 
 interface CartItem {
   _id: string
@@ -88,12 +89,6 @@ export const useCartStore = create<CartState & CartActions>()(
         try {
           let accessToken = localStorage.getItem("authToken");
           let session_id = localStorage.getItem("sessionId")
-          const apiClient = new ApiClient({
-            headers: {
-              // Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
 
           const res = await apiClient.get(`storefront/store/${STORE_ID}/cart`) as any;
           console.log(res);
@@ -135,12 +130,7 @@ export const useCartStore = create<CartState & CartActions>()(
           console.log("accesstoken", accessToken);
 
 
-          const apiClient = new ApiClient({
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
+
           // STORE_ID, productId, quantity, variant?.id
           const res = await apiClient.post(`/storefront/store/${STORE_ID}/cart/add`, { product_id: productId, quantity, variant_id: variantId, size_id: sizeId })
           console.log(res);
@@ -164,12 +154,7 @@ export const useCartStore = create<CartState & CartActions>()(
         try {
           let accessToken = localStorage.getItem("authToken");
           let session_id = localStorage.getItem("sessionId")
-          const apiClient = new ApiClient({
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
+
           const res = await apiClient.put(`/storefront/store/${STORE_ID}/cart/update`, { product_id: productId, quantity, variant_id: variantId, size_id: sizeId })
           console.log(res);
 
@@ -190,12 +175,7 @@ export const useCartStore = create<CartState & CartActions>()(
         try {
           let accessToken = localStorage.getItem("authToken");
           let session_id = localStorage.getItem("sessionId")
-          const apiClient = new ApiClient({
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
+
           const res = await apiClient.delete(`/storefront/store/${STORE_ID}/cart/remove`, { product_id: productId, variant_id: variantId })
           // const res = await cartApi.removeCartItem(STORE_ID, productId, variantId)
           console.log(res);
@@ -217,12 +197,7 @@ export const useCartStore = create<CartState & CartActions>()(
         try {
           let accessToken = localStorage.getItem("authToken");
           let session_id = localStorage.getItem("sessionId")
-          const apiClient = new ApiClient({
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
+
           const res = await apiClient.delete(`/storefront/store/${STORE_ID}/cart/clear`)
           // const res = await cartApi.clearCart(STORE_ID)
           if (res.success) {
@@ -243,11 +218,7 @@ export const useCartStore = create<CartState & CartActions>()(
           const sessionId = localStorage.getItem("sessionId");
           // console.log(variantId, sizeId);
 
-          const apiClient = new ApiClient({
-            headers: {
-              'x-session-id': "8d558caa-2279-4b9d-8634-1760c1b1abd1"
-            },
-          });
+
           const res = await apiClient.post("//storefront/store/${STORE_ID}/cart/$", { cart_id: (get().cart_id), coupon_code: code })
           if (res.success) {
             await get().fetchCart()

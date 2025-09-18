@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware"
 import { orderApi } from "@/lib/api"
 import ApiClient from "@/lib/apiCalling"
 import { STORE_ID } from "@/data/Consts"
+import apiClient from "@/lib/apiCalling"
 // import type { Order } from "@/lib/types"
 
 interface OrderState {
@@ -25,9 +26,7 @@ interface OrderState {
   requestReturn: (orderId: string, data: any) => Promise<boolean>
   clearError: () => void
 }
-const apiClient = new ApiClient({
 
-})
 export const useOrderStore = create<OrderState>()(
   persist(
     (set, get) => ({
@@ -72,12 +71,7 @@ export const useOrderStore = create<OrderState>()(
         try {
           let accessToken = localStorage.getItem("authToken");
           let session_id = localStorage.getItem("sessionId")
-          const apiClient = new ApiClient({
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              'x-session-id': session_id
-            },
-          });
+
           const response = await apiClient.get(`/storefront/store/${STORE_ID}/orders/${orderId}`) as any
           console.log(response);
 

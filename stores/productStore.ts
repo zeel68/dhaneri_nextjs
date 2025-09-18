@@ -2,6 +2,7 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import ApiClient from "@/lib/apiCalling"
 import { STORE_ID } from "@/data/Consts"
+import apiClient from "@/lib/apiCalling"
 
 interface Product {
   _id: string
@@ -53,7 +54,7 @@ interface ProductState {
   clearError: () => void
 }
 
-const apiClient = new ApiClient()
+
 
 export const useProductStore = create<ProductState>()(
   persist(

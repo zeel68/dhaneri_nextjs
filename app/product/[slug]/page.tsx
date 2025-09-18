@@ -10,6 +10,7 @@ import ApiClient from "@/lib/apiCalling"
 import { useCartStore } from "@/stores/cartStore"
 import { useRouter } from "next/navigation"
 import { STORE_ID } from "@/data/Consts"
+import apiClient from "@/lib/apiCalling"
 
 // Mock product data - in real app this would come from API/database
 const product = {
@@ -131,7 +132,7 @@ interface Product {
 }
 export default function ProductPage({ params }: { params: { slug: string } }) {
 
-  const apiClient = new ApiClient();
+
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);

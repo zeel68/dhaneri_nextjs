@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import LiveChatComponent from './liveChat';
 import LoginModal from '../auth/login-form';
 import Link from 'next/link';
+import { useWishlistStore } from '@/stores/wishlistStore';
 
 // Interfaces for type safety
 interface Product {
@@ -41,11 +42,6 @@ interface Category {
   products?: Product[];
 }
 
-// Mock wishlist hook with proper typing
-const useWishlistStore = () => ({
-  items: [1, 2],
-  totalItems: 2
-});
 
 // Enhanced Mega Menu Component
 const MegaMenu = ({ category, isVisible, onMouseEnter, onMouseLeave }: {
@@ -307,7 +303,7 @@ const MegaMenu = ({ category, isVisible, onMouseEnter, onMouseLeave }: {
 const Navbar = () => {
   const { categories, loading, fetchCategories } = useCategoryStore();
   const { items: cartItems } = useCartStore();
-  const { totalItems: wishItems } = useWishlistStore();
+  const { items: wishItems } = useWishlistStore();
   const { user, sessionId, startSession, destorySession, hasHydrated } = useUserStore();
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);
@@ -461,14 +457,16 @@ const Navbar = () => {
             )}
 
             {/* Wishlist */}
-            <button className="p-2 rounded-full hover:bg-gray-100 transition-colors relative hidden md:block">
-              <Heart size={20} className="text-gray-600" />
-              {wishItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
-                  {wishItems}
-                </span>
-              )}
-            </button>
+            <Link href={"/wishlist"}>
+              <button className="p-2 rounded-full hover:bg-gray-100 transition-colors relative hidden md:block">
+                <Heart size={20} className="text-gray-600" />
+                {wishItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                    {wishItems.length}
+                  </span>
+                )}
+              </button>
+            </Link>
 
             {/* Cart */}
             <Link

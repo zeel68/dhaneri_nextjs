@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware"
 
 import { STORE_ID } from "@/data/Consts"
 import ApiClient from "@/lib/apiCalling"
+import apiClient from "@/lib/apiCalling"
 
 interface CategoryState {
   categories: any[]
@@ -21,7 +22,7 @@ interface CategoryState {
   clearError: () => void
 }
 
-const apiClient = new ApiClient({})
+
 export const useCategoryStore = create<CategoryState>()(
   persist(
     (set, get) => ({

@@ -13,6 +13,7 @@ import {
 import { Input } from "../ui/input";
 import ApiClient from "@/lib/apiCalling";
 import { useUserStore } from "@/stores/userStore";
+import apiClient from "@/lib/apiCalling";
 
 const LoginModal = ({
   isOpen,
@@ -72,14 +73,14 @@ const LoginModal = ({
     setApiError(null);
 
     try {
-      const apiClient = new ApiClient();
+
 
       if (authMode === "login") {
         const res = await apiClient.post("/auth/login", {
           email: formData.email,
           password: formData.password,
           rememberMe: formData.rememberMe,
-        });
+        }) as any;
         const resData = res.data.data;
 
         setUser(
@@ -90,7 +91,7 @@ const LoginModal = ({
             role: resData.user.role,
             accessToken: resData.accessToken,
             refreshToken: resData.refreshToken,
-          },
+          } as any,
           resData.accessToken
         );
 

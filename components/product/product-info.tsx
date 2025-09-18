@@ -211,7 +211,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <div className="flex gap-3">
           {product?.variants?.map((color: any) => (
             <button
-              key={color.id}
+              key={color._id}
               onClick={() => setSelectedVariant(color)}
 
               className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color.id
