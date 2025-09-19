@@ -91,6 +91,14 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const { toast } = useToast()
 
   const isWishlisted = isInWishlist(product?._id)
+  const sizeChart = [
+    { size: "XS", bust: "32", waist: "26", hip: "34", length: "40" },
+    { size: "S", bust: "34", waist: "28", hip: "36", length: "41" },
+    { size: "M", bust: "36", waist: "30", hip: "38", length: "42" },
+    { size: "L", bust: "38", waist: "32", hip: "40", length: "43" },
+    { size: "XL", bust: "40", waist: "34", hip: "42", length: "44" },
+    { size: "XXL", bust: "42", waist: "36", hip: "44", length: "45" },
+  ]
   useEffect(() => {
     if (product?.variants) {
 
@@ -253,7 +261,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {product?.sizeChart?.map((size: any) => (
+                    {sizeChart?.map((size: any) => (
                       <tr key={size.size} className="border-b">
                         <td className="p-2 font-medium">{size.size}</td>
                         <td className="p-2">{size.bust}</td>
