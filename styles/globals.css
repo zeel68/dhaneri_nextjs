@@ -4,74 +4,142 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Light theme - Elegant Rose Gold & Warm Neutrals */
+  --background: oklch(0.98 0.005 35);
+  /* Soft cream background */
+  --foreground: oklch(0.25 0.02 15);
+  /* Deep charcoal for text */
+  --card: oklch(0.99 0.003 25);
+  /* Pure white cards */
+  --card-foreground: oklch(0.25 0.02 15);
+  /* Deep charcoal for card text */
+  --popover: oklch(0.99 0.003 25);
+  /* White popover */
+  --popover-foreground: oklch(0.25 0.02 15);
+  /* Deep charcoal popover text */
+  --primary: oklch(0.65 0.15 25);
+  /* Rose gold primary */
+  --primary-foreground: oklch(0.98 0.005 35);
+  /* Light text on primary */
+  --secondary: oklch(0.92 0.02 320);
+  /* Soft lavender secondary */
+  --secondary-foreground: oklch(0.35 0.05 15);
+  /* Dark text on secondary */
+  --muted: oklch(0.95 0.01 40);
+  /* Warm light muted */
+  --muted-foreground: oklch(0.55 0.02 25);
+  /* Medium warm text */
+  --accent: oklch(0.88 0.08 340);
+  /* Soft pink accent */
+  --accent-foreground: oklch(0.35 0.05 15);
+  /* Dark text on accent */
+  --destructive: oklch(0.65 0.18 15);
+  /* Warm coral for destructive */
+  --destructive-foreground: oklch(0.98 0.005 35);
+  /* Light text on destructive */
+  --border: oklch(0.89 0.015 30);
+  /* Warm light border */
+  --input: oklch(0.96 0.01 35);
+  /* Soft input background */
+  --ring: oklch(0.65 0.15 25);
+  /* Rose gold focus ring */
+  --chart-1: oklch(0.65 0.15 25);
+  /* Rose gold chart */
+  --chart-2: oklch(0.75 0.12 320);
+  /* Lavender chart */
+  --chart-3: oklch(0.68 0.14 40);
+  /* Warm peach chart */
+  --chart-4: oklch(0.72 0.10 280);
+  /* Soft purple chart */
+  --chart-5: oklch(0.78 0.08 60);
+  /* Golden yellow chart */
+  --radius: 0.75rem;
+  /* Slightly more rounded for elegance */
+  --sidebar: oklch(0.96 0.01 35);
+  /* Soft sidebar background */
+  --sidebar-foreground: oklch(0.25 0.02 15);
+  /* Dark sidebar text */
+  --sidebar-primary: oklch(0.65 0.15 25);
+  /* Rose gold sidebar primary */
+  --sidebar-primary-foreground: oklch(0.98 0.005 35);
+  /* Light sidebar primary text */
+  --sidebar-accent: oklch(0.92 0.02 320);
+  /* Lavender sidebar accent */
+  --sidebar-accent-foreground: oklch(0.35 0.05 15);
+  /* Dark sidebar accent text */
+  --sidebar-border: oklch(0.89 0.015 30);
+  /* Warm sidebar border */
+  --sidebar-ring: oklch(0.65 0.15 25);
+  /* Rose gold sidebar ring */
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Dark theme - Deep Plum & Rose Gold */
+  --background: oklch(0.12 0.02 320);
+  /* Deep plum background */
+  --foreground: oklch(0.95 0.01 35);
+  /* Warm light text */
+  --card: oklch(0.15 0.03 315);
+  /* Darker plum cards */
+  --card-foreground: oklch(0.95 0.01 35);
+  /* Light card text */
+  --popover: oklch(0.15 0.03 315);
+  /* Dark popover */
+  --popover-foreground: oklch(0.95 0.01 35);
+  /* Light popover text */
+  --primary: oklch(0.75 0.12 25);
+  /* Bright rose gold primary */
+  --primary-foreground: oklch(0.12 0.02 320);
+  /* Dark text on primary */
+  --secondary: oklch(0.25 0.05 310);
+  /* Deep purple secondary */
+  --secondary-foreground: oklch(0.95 0.01 35);
+  /* Light text on secondary */
+  --muted: oklch(0.22 0.04 315);
+  /* Dark muted */
+  --muted-foreground: oklch(0.72 0.02 30);
+  /* Light muted text */
+  --accent: oklch(0.35 0.08 335);
+  /* Deep pink accent */
+  --accent-foreground: oklch(0.95 0.01 35);
+  /* Light text on accent */
+  --destructive: oklch(0.55 0.15 20);
+  /* Warm coral destructive */
+  --destructive-foreground: oklch(0.95 0.01 35);
+  /* Light text on destructive */
+  --border: oklch(0.25 0.05 310);
+  /* Purple border */
+  --input: oklch(0.18 0.03 315);
+  /* Dark input background */
+  --ring: oklch(0.75 0.12 25);
+  /* Rose gold focus ring */
+  --chart-1: oklch(0.75 0.12 25);
+  /* Rose gold chart */
+  --chart-2: oklch(0.65 0.10 320);
+  /* Purple chart */
+  --chart-3: oklch(0.68 0.12 40);
+  /* Peach chart */
+  --chart-4: oklch(0.62 0.08 280);
+  /* Violet chart */
+  --chart-5: oklch(0.78 0.10 60);
+  /* Golden chart */
+  --radius: 0.75rem;
+  --sidebar: oklch(0.18 0.03 315);
+  /* Dark sidebar */
+  --sidebar-foreground: oklch(0.95 0.01 35);
+  /* Light sidebar text */
+  --sidebar-primary: oklch(0.75 0.12 25);
+  /* Rose gold sidebar primary */
+  --sidebar-primary-foreground: oklch(0.12 0.02 320);
+  /* Dark sidebar primary text */
+  --sidebar-accent: oklch(0.25 0.05 310);
+  /* Purple sidebar accent */
+  --sidebar-accent-foreground: oklch(0.95 0.01 35);
+  /* Light sidebar accent text */
+  --sidebar-border: oklch(0.25 0.05 310);
+  /* Purple sidebar border */
+  --sidebar-ring: oklch(0.75 0.12 25);
+  /* Rose gold sidebar ring */
 }
 
 @theme inline {
@@ -119,7 +187,47 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom additions for women's clothing ecommerce */
+@layer components {
+  .product-card-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.99 0.003 25) 0%,
+        oklch(0.97 0.01 30) 100%);
+  }
+
+  .hero-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.98 0.005 35) 0%,
+        oklch(0.92 0.02 320) 100%);
+  }
+
+  .cta-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.65 0.15 25) 0%,
+        oklch(0.68 0.14 40) 100%);
+  }
+
+  .dark .product-card-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.15 0.03 315) 0%,
+        oklch(0.18 0.03 320) 100%);
+  }
+
+  .dark .hero-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.12 0.02 320) 0%,
+        oklch(0.18 0.04 315) 100%);
+  }
+
+  .dark .cta-gradient {
+    background: linear-gradient(135deg,
+        oklch(0.75 0.12 25) 0%,
+        oklch(0.68 0.12 40) 100%);
   }
 }
