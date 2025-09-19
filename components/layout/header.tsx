@@ -126,7 +126,7 @@ const MegaMenu = ({ category, isVisible, onMouseEnter, onMouseLeave }: {
                     (product.variants?.[0]?.images?.[product.variants[0].primaryIndex || 0]) ||
                     null;
                   return (
-                    <Link href={`/product/${product.slug}`}>
+                    <Link key={product._id} href={`/product/${product.slug}`}>
                       <motion.div
                         key={product._id}
 

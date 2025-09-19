@@ -9,6 +9,7 @@ import { useCategoryStore } from "@/stores/categoryStore"
 import { useUserStore } from "@/stores/userStore"
 import { STORE_ID } from "@/data/Consts"
 import ApiClient from "@/lib/apiCalling"
+import apiClient from "@/lib/apiCalling"
 
 interface ShopPageProps {
   params: {
@@ -96,6 +97,7 @@ export default function ShopPage({ params }: ShopPageProps) {
   let param: any;
   let categoryId: string = "";
   const { fetchProducts, fetchFeaturedProducts } = useProductStore()
+  const { categories: storeCategories } = useCategoryStore();
   const { startSession } = useUserStore()
   const [categories, setCategories] = useState<Category>();
   const [loading, setLoading] = useState<boolean>(false)
@@ -114,13 +116,15 @@ export default function ShopPage({ params }: ShopPageProps) {
   }
   const fetchCategory = async () => {
     try {
-      const apiClient = new ApiClient();
+
       console.log("api calling", categoryId);
 
       const response = await apiClient.get(`storefront/store/${STORE_ID}/category/${categoryId}`) as any;
-      const categoryData = response.data.data[0] as Category;
 
-      console.log(response);
+      const categoryData = response.data.data[0] as Category;
+      console.log("stored", storeCategories);
+
+      // console.log(response);
 
       setCategories(categoryData);
       setFilters(categoryData.config.filters)

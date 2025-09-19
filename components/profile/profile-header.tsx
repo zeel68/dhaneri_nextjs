@@ -13,7 +13,7 @@ import { useUserStore } from "@/stores/userStore"
 
 // Profile Header Component with Edit Profile Dialog
 export function ProfileHeader() {
-  const { user, updateUser } = useUserStore();
+  const { user } = useUserStore();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editForm, setEditForm] = useState({
     name: user?.name || '',
@@ -22,10 +22,10 @@ export function ProfileHeader() {
     address: user?.address || ''
   });
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = (e: any) => {
     e.preventDefault();
     // Update user store with new data
-    updateUser(editForm);
+    // upda/eUser(editForm);
     setIsEditDialogOpen(false);
   };
 

@@ -53,7 +53,7 @@ export const useCategoryStore = create<CategoryState>()(
 
           const response = (await apiClient.get(`/storefront/store/${STORE_ID}/category`)) as any
 
-          console.log(response)
+          // console.log(response)
 
           if (response.success) {
             const data = response.data.data || response.data
@@ -62,7 +62,7 @@ export const useCategoryStore = create<CategoryState>()(
               loading: false,
               lastFetch: now,
             })
-            console.log("cat data", data)
+            // console.log("cat data", data)
           } else {
             set({
               categories: [],
