@@ -6,7 +6,7 @@ import { Heart, ShoppingBag } from "lucide-react"
 
 const relatedProducts = [
   {
-    id: 2,
+    id: "2",
     name: "Floral Print A-Line Kurti",
     price: 899,
     originalPrice: 1199,
@@ -15,7 +15,7 @@ const relatedProducts = [
     discount: 25,
   },
   {
-    id: 3,
+    id: "3",
     name: "Silk Blend Festive Kurti",
     price: 2199,
     originalPrice: 2799,
@@ -24,7 +24,7 @@ const relatedProducts = [
     discount: 21,
   },
   {
-    id: 4,
+    id: "4",
     name: "Casual Straight Kurti",
     price: 699,
     originalPrice: 999,
@@ -33,7 +33,7 @@ const relatedProducts = [
     discount: 30,
   },
   {
-    id: 5,
+    id: "5",
     name: "Block Print Palazzo Set",
     price: 1599,
     originalPrice: 1999,
@@ -44,7 +44,7 @@ const relatedProducts = [
 ]
 
 interface RelatedProductsProps {
-  currentProductId: number
+  currentProductId: string
 }
 
 export function RelatedProducts({ currentProductId }: RelatedProductsProps) {

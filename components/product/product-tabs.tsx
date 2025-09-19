@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,18 +10,51 @@ import { useAuth } from "@/lib/auth-context"
 import { Star, Plus } from "lucide-react"
 
 interface ProductTabsProps {
-  product: any
+  product: any;
+  selectedVariant: any;
+  selectedSize: any;
 }
 
-export function ProductTabs({ product }: ProductTabsProps) {
-  const [activeTab, setActiveTab] = useState("description")
-  const [showAddReview, setShowAddReview] = useState(false)
-  const { getProductReviews, getAverageRating, getRatingDistribution } = useReviews()
-  const { state: authState } = useAuth()
+export function ProductTabs({ product, selectedVariant, selectedSize }: ProductTabsProps) {
+  const [activeTab, setActiveTab] = useState("description");
+  const [showAddReview, setShowAddReview] = useState(false);
+  const { getProductReviews, getAverageRating, getRatingDistribution } = useReviews();
+  const { state: authState } = useAuth();
+  const reviews = getProductReviews(product?.id);
+  const averageRating = getAverageRating(product?.id);
+  const ratingDistribution = getRatingDistribution(product?.id);
 
-  const reviews = getProductReviews(product?.id)
-  const averageRating = getAverageRating(product?.id)
-  const ratingDistribution = getRatingDistribution(product?.id)
+  // Generate specifications based on product, variant, and size
+  const generateSpecifications = () => {
+    const specs = [];
+
+    // Add product-level specifications
+    if (product?.HSNCode) {
+      specs.push({ label: "HSN Code", value: product.HSNCode });
+    }
+
+    if (product?.brand) {
+      specs.push({ label: "Brand", value: product.brand });
+    }
+
+    // Add variant-level specifications
+    if (selectedVariant?.color) {
+      specs.push({ label: "Color", value: selectedVariant.color });
+    }
+
+    // Add size-level specifications
+    if (selectedSize?.attributes && selectedSize.attributes.length > 0) {
+      selectedSize.attributes.forEach((attr: any) => {
+        Object.entries(attr).forEach(([key, value]) => {
+          specs.push({ label: key, value: value as string });
+        });
+      });
+    }
+
+    return specs;
+  };
+
+  const specifications = generateSpecifications();
 
   return (
     <div className="mt-12">
@@ -37,19 +69,10 @@ export function ProductTabs({ product }: ProductTabsProps) {
           <Card>
             <CardContent className="p-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">product Description</h3>
-                <p className="text-muted-foreground leading-relaxed text-pretty">{product?.description}</p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                  <div>
-                    <h4 className="font-medium text-foreground mb-2">Care Instructions</h4>
-                    <p className="text-sm text-muted-foreground">{product?.details?.care}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-foreground mb-2">Origin</h4>
-                    <p className="text-sm text-muted-foreground">{product.details?.origin}</p>
-                  </div>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground">Product Description</h3>
+                <p className="text-muted-foreground leading-relaxed text-pretty">
+                  {product?.description || "No description available."}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -59,14 +82,18 @@ export function ProductTabs({ product }: ProductTabsProps) {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-foreground mb-4">Product Specifications</h3>
-              <div className="space-y-3">
-                {product?.specifications?.map((spec: any, index: any) => (
-                  <div key={index} className="flex justify-between py-2 border-b border-border last:border-b-0">
-                    <span className="text-muted-foreground">{spec.label}</span>
-                    <span className="text-foreground font-medium">{spec.value}</span>
-                  </div>
-                ))}
-              </div>
+              {specifications.length > 0 ? (
+                <div className="space-y-3">
+                  {specifications.map((spec, index) => (
+                    <div key={index} className="flex justify-between py-2 border-b border-border last:border-b-0">
+                      <span className="text-muted-foreground">{spec.label}</span>
+                      <span className="text-foreground font-medium">{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">No specifications available.</p>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -102,8 +129,8 @@ export function ProductTabs({ product }: ProductTabsProps) {
                   <div className="flex-1">
                     <div className="space-y-2">
                       {[5, 4, 3, 2, 1].map((rating) => {
-                        const count = ratingDistribution[rating] || 0
-                        const percentage = reviews.length > 0 ? (count / reviews.length) * 100 : 0
+                        const count = ratingDistribution[rating] || 0;
+                        const percentage = reviews.length > 0 ? (count / reviews.length) * 100 : 0;
                         return (
                           <div key={rating} className="flex items-center gap-2">
                             <span className="text-sm w-8">{rating}★</span>
@@ -117,7 +144,7 @@ export function ProductTabs({ product }: ProductTabsProps) {
                               {count} ({Math.round(percentage)}%)
                             </span>
                           </div>
-                        )
+                        );
                       })}
                     </div>
                   </div>
@@ -135,10 +162,10 @@ export function ProductTabs({ product }: ProductTabsProps) {
             )}
 
             {/* Reviews List */}
-            <ReviewsList productId={product.id} />
+            <ReviewsList productId={product?.id} />
           </div>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

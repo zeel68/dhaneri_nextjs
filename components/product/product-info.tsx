@@ -77,7 +77,7 @@ interface Product {
 
 export function ProductInfo({ product }: ProductInfoProps) {
   if (product) {
-    product.originalPrice = 1999;
+    product.originalPrice = product.compare_price;
   }
   const router = useRouter();
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
@@ -186,7 +186,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
               {product?.rating} ({product?.reviews} reviews)
             </span>
           </div>
-          <Badge className="bg-red-600 text-white font-semibold">{product?.discount}% OFF</Badge>
+          <Badge className="bg-red-600 text-white font-semibold">{Math.round(((product?.compare_price - product?.price) / product?.compare_price) * 100)}% OFF</Badge>
         </div>
       </div>
 
@@ -206,7 +206,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
       <div className="space-y-3">
         <h3 className="font-medium text-foreground">
-          Color: {product?.variants?.colors?.find((c: any) => c.id === selectedColor)?.name || "Select Color"}
+          Color: {product?.variants?.find((c: any) => c._id === selectedColor)?.color || "Select Color"}
         </h3>
         <div className="flex gap-3">
           {product?.variants?.map((color: any) => (
@@ -280,8 +280,6 @@ export function ProductInfo({ product }: ProductInfoProps) {
                 }`}
               onClick={() => {
                 setSelectedSize(size)
-                console.log(selectedVariant?._id, size._id);
-
               }}
 
 

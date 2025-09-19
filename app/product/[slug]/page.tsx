@@ -4,75 +4,11 @@ import { ProductInfo } from "@/components/product/product-info"
 import { ProductTabs } from "@/components/product/product-tabs"
 import { RelatedProducts } from "@/components/product/related-products"
 import { ProductBreadcrumb } from "@/components/product/product-breadcrumb"
-import { useEffect, useRef, useState } from "react"
-import ApiClient from "@/lib/apiCalling"
-
+import { use, useEffect, useState } from "react"
 import { useCartStore } from "@/stores/cartStore"
 import { useRouter } from "next/navigation"
 import { STORE_ID } from "@/data/Consts"
 import apiClient from "@/lib/apiCalling"
-
-// Mock product data - in real app this would come from API/database
-const product = {
-  id: 1,
-  name: "Embroidered Cotton Kurti",
-  price: 1299,
-  originalPrice: 1599,
-  discount: 19,
-  rating: 4.5,
-  reviews: 23,
-  description:
-    "Beautiful embroidered cotton kurti perfect for casual and semi-formal occasions. Features intricate thread work and comfortable fit.",
-  images: [
-    "/placeholder.svg?height=600&width=500",
-    "/placeholder.svg?height=600&width=500",
-    "/placeholder.svg?height=600&width=500",
-    "/placeholder.svg?height=600&width=500",
-  ],
-  variants: {
-    colors: [
-      { id: "black", name: "Black", hex: "#000000", available: true },
-      { id: "red", name: "Red", hex: "#DC2626", available: true },
-      { id: "blue", name: "Blue", hex: "#2563EB", available: false },
-    ],
-    sizes: [
-      { id: "xs", name: "XS", available: false },
-      { id: "s", name: "S", available: true },
-      { id: "m", name: "M", available: true },
-      { id: "l", name: "L", available: true },
-      { id: "xl", name: "XL", available: true },
-      { id: "xxl", name: "XXL", available: false },
-    ],
-  },
-  details: {
-    fabric: "Cotton",
-    pattern: "Embroidered",
-    sleeves: "3/4 Sleeves",
-    length: "Knee Length",
-    neckline: "Round Neck",
-    fit: "Regular Fit",
-    care: "Machine Wash",
-    origin: "Made in India",
-  },
-  specifications: [
-    { label: "Fabric", value: "100% Cotton" },
-    { label: "Pattern", value: "Embroidered" },
-    { label: "Sleeves", value: "3/4 Sleeves" },
-    { label: "Length", value: "Knee Length (42 inches)" },
-    { label: "Neckline", value: "Round Neck" },
-    { label: "Fit", value: "Regular Fit" },
-    { label: "Care Instructions", value: "Machine wash cold, tumble dry low" },
-    { label: "Country of Origin", value: "India" },
-  ],
-  sizeChart: [
-    { size: "XS", bust: "32", waist: "26", hip: "34", length: "40" },
-    { size: "S", bust: "34", waist: "28", hip: "36", length: "41" },
-    { size: "M", bust: "36", waist: "30", hip: "38", length: "42" },
-    { size: "L", bust: "38", waist: "32", hip: "40", length: "43" },
-    { size: "XL", bust: "40", waist: "34", hip: "42", length: "44" },
-    { size: "XXL", bust: "42", waist: "36", hip: "44", length: "45" },
-  ],
-}
 
 interface SizeOption {
   _id: string;
@@ -80,7 +16,7 @@ interface SizeOption {
   stock: number;
   priceModifier: number;
   sku: string;
-  attributes: Record<string, any>;
+  attributes: Record<string, any>[];
 }
 
 interface Variant {
@@ -130,43 +66,22 @@ interface Product {
     reserved: number;
   };
 }
+
 export default function ProductPage({ params }: { params: { slug: string } }) {
-
-
+  const param = use(params as any) as any;
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [selectedSize, setSelectedSize] = useState<SizeOption | null>(null);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
-  const [activeTab, setActiveTab] = useState('description');
-  const [showFullscreen, setShowFullscreen] = useState(false);
-  const [showSizeGuide, setShowSizeGuide] = useState(false);
-  const [showShare, setShowShare] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isZoomed, setIsZoomed] = useState(false);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const { addToCart, loading: cartLoading, error: cartError } = useCartStore();
+  const { addToCart } = useCartStore();
 
-  const finalPrice = selectedSize
-    ? product?.price ?? 0 + selectedSize.priceModifier
-    : product?.price || 0;
   useEffect(() => {
-    fetchSlug();
-  }, [])
-  const fetchSlug = async () => {
-    const param = await params;
-    if (param.slug) {
-      // fetch that product
-      console.log("Fetching slug", param.slug);
-      fetchProduct(param.slug);
-    }
-  }
+    fetchProduct(param.slug);
+  }, [param.slug]);
+
   const fetchProduct = async (slug: string) => {
     try {
       setLoading(true);
@@ -176,6 +91,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       setProduct(productData);
       if (productData.variants && productData.variants.length > 0) {
         setSelectedVariant(productData.variants[0]);
+        if (productData.variants[0].sizes && productData.variants[0].sizes.length > 0) {
+          setSelectedSize(productData.variants[0].sizes[0]);
+        }
       }
     } catch (error) {
       console.error("Error fetching product:", error);
@@ -185,19 +103,63 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     }
   };
 
+  const handleVariantChange = (variant: Variant) => {
+    setSelectedVariant(variant);
+    if (variant.sizes && variant.sizes.length > 0) {
+      setSelectedSize(variant.sizes[0]);
+    } else {
+      setSelectedSize(null);
+    }
+  };
+
+  const handleSizeChange = (size: SizeOption) => {
+    setSelectedSize(size);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-6">
         <ProductBreadcrumb product={{ name: product?.name ?? "" }} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
-          <ProductGallery images={product?.images ?? []} productName={product?.name ?? ""} />
-          <ProductInfo product={product} selectedVariant={selectedVariant} />
+          <ProductGallery
+            images={selectedVariant?.images || product?.images || []}
+            productName={product?.name ?? ""}
+          />
+          <ProductInfo
+            product={product}
+            selectedVariant={selectedVariant}
+            selectedSize={selectedSize}
+            onVariantChange={handleVariantChange}
+            onSizeChange={handleSizeChange}
+            quantity={quantity}
+            onQuantityChange={setQuantity}
+            onAddToCart={() => {
+              if (product && selectedVariant && selectedSize) {
+                addToCart({
+                  productId: product._id,
+                  variantId: selectedVariant._id,
+                  sizeId: selectedSize._id,
+                  quantity,
+                  name: product.name,
+                  price: product.price + selectedSize.priceModifier,
+                  image: selectedVariant.images[0] || product.images[0]
+                } as any);
+              }
+            }}
+          />
         </div>
 
-        <ProductTabs product={product ?? {}} />
-        {/* <RelatedProducts currentProductId={product.id} /> */}
+        <ProductTabs
+          product={product}
+          selectedVariant={selectedVariant}
+          selectedSize={selectedSize}
+        />
+        <RelatedProducts currentProductId={product?._id ?? ""} />
       </div>
     </div>
-  )
+  );
 }
